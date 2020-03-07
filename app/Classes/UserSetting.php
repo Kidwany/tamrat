@@ -3,9 +3,7 @@
 
 namespace App\Classes;
 
-
-use App\Models\Setting;
-use App\Models\UserDetails;
+use App\User;
 use Illuminate\Support\Facades\Auth;
 
 class UserSetting
@@ -13,14 +11,15 @@ class UserSetting
 
     public static function userLanguage()
     {
-        $userLang = UserDetails::where('user_id', Auth::user()->id)->first()->lang;
-        if ($userLang)
+
+        if ($authenticatedUser = Auth::user())
         {
-            return $userLang;
+            return $userLang = User::where('id', $authenticatedUser->id)->first()->lang;
         }
+
         else
         {
-            return Setting::first()->default_lang;
+            return 'ar';
         }
     }
 

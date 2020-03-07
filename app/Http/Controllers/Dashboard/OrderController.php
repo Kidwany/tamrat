@@ -34,7 +34,7 @@ class OrderController extends Controller
         }
         else
         {
-            $orders = Order::with('orderFinance')->get();
+            $orders = Order::with('orderFinance')->where('user_id', '!=', null)->get();
             return view('dashboard.order.index', compact('orders'));
         }
     }

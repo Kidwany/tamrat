@@ -24,19 +24,6 @@ class OrderItems extends Model
      */
     protected $table = 'order_items';
 
-    /**
-     * The "type" of the auto-incrementing ID.
-     * 
-     * @var string
-     */
-    protected $keyType = 'integer';
-
-    /**
-     * Indicates if the IDs are auto-incrementing.
-     * 
-     * @var bool
-     */
-    public $incrementing = false;
 
     /**
      * @var array

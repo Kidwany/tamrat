@@ -62,6 +62,16 @@
                             <hr>
                         </div>
                     </div>
+                    <div class="card">
+                        <div class="body">
+                            <small class="text-muted">تم التسجيل من : </small>
+                            <p>{{$user->platform ? ($user->platform == 1 ? 'Android' : 'IOS') : ''}}</p>
+                            <hr>
+                            <small class="text-muted">اللغة: </small>
+                            <p>{{$user->lang ? ($user->lang == 'ar' ? 'العربية' : 'الإنجليزية') : ''}}</p>
+                            <hr>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-lg-8 col-md-12">
                     <div class="card">

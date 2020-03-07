@@ -4,7 +4,7 @@
  * Now-ui-kit - v1.1.0
  =========================================================
 
- * Product Page: https://www.creative-tim.com/product/now-ui-kit
+ * ProductResource Page: https://www.creative-tim.com/product/now-ui-kit
  * Copyright 2017 Creative Tim (http://www.creative-tim.com)
  * Licensed under MIT (https://github.com/creativetimofficial/now-ui-kit/blob/master/LICENSE.md)
 

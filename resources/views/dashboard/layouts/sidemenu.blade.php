@@ -221,7 +221,7 @@
 <aside id="leftsidebar" class="sidebar">
     <div class="navbar-brand">
         <button class="btn-menu ls-toggle-btn" type="button"><i class="zmdi zmdi-menu"></i></button>
-        <a href="{{adminUrl('/')}}"><img src="{{asset('dashboard/assets/images/logo2.png')}}" width="25" alt="Aero"><span class="m-l-10">تطبيق تمرة</span></a>
+        <a href="{{adminUrl('/')}}"><img src="{{asset('dashboard/assets/images/logo-3.png')}}" width="25" alt="Aero"><span class="m-l-10"> تطبيق تمرات</span></a>
     </div>
     <div class="menu">
         <ul class="list">
@@ -229,7 +229,7 @@
                 <div class="user-info">
                     <a class="image" href="{{adminUrl('profile')}}"><img src="{{asset('dashboard/assets/images/user.png')}}" alt="User"></a>
                     <div class="detail">
-                        <h4>محمد حسين</h4>
+                        <h4> {{Auth::user()->name}} </h4>
                         <small>مدير التطبيق</small>
                     </div>
                 </div>
@@ -264,6 +264,18 @@
             <li><a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-money-box"></i><span>التحويلات البنكية</span></a>
                 <ul class="ml-menu">
                     <li><a href="{{adminUrl('bank-transfer')}}">التحويلات النكية</a></li>
+                </ul>
+            </li>
+            <li><a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-local-offer"></i><span>العروض </span></a>
+                <ul class="ml-menu">
+                    <li><a href="#"> شاهد العروض السابقة </a></li>
+                    <li><a href="#"> عرض جديد   </a></li>
+                </ul>
+            </li>
+            <li><a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-money"></i><span>إعدادات الدفع </span></a>
+                <ul class="ml-menu">
+                    <li><a href="#"> ضبط إعدادات الدفع </a></li>
+                    <li><a href="#"> عرض جديد   </a></li>
                 </ul>
             </li>
             {{--<li><a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-swap-alt"></i><span>توصيل الطلبات</span></a>

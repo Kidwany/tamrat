@@ -11,11 +11,12 @@
 |
 */
 
+
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::group(['namespace' => 'Dashboard', 'prefix' => 'tamra-admin'], function ()
+Route::group(['namespace' => 'Dashboard', 'prefix' => 'tamra-admin', 'middleware' => 'auth'], function ()
 {
 
     Route::get('/', 'DashboardController@index');
@@ -32,3 +33,7 @@ Route::group(['namespace' => 'Dashboard', 'prefix' => 'tamra-admin'], function (
 
     Route::resource('notification', 'NotificationController');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
