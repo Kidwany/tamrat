@@ -1,5 +1,7 @@
 @extends('dashboard.layouts.layouts')
 
+@section('title', 'لوحة التحكم')
+
 @section('customizedStyle')
 @endsection
 

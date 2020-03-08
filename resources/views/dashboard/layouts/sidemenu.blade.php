@@ -290,6 +290,9 @@
                     <li><a href="{{adminUrl('admin/create')}}">اضف مدير للتطبيق</a></li>
                 </ul>
             </li>
+
+            <li><a href="#"><i class="zmdi zmdi-sign-in"></i><span>تسجيل الخروج  </span></a>
+            </li>
         </ul>
     </div>
 </aside>
