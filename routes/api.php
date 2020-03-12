@@ -21,14 +21,34 @@ Route::group(['prefix' => 'auth', 'namespace'  => 'Api'], function() {
     Route::post('login', 'AuthController@login');
     // Register Api
     Route::post('register', 'AuthController@register');
+    // Verify
+    Route::post('verify', 'AuthController@verify');
     // Reset Password Api
     Route::post('reset-password', 'AuthController@sendResetPasswordEmail');
     //Route::post('send-reset-email', 'AuthController@reset');
 });
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+
+
+Route::group(['middleware' => 'auth:api', 'namespace'  => 'Api'], function() {
+
+    // Order Finance Api
+    Route::post('order-finance', 'CheckoutController@saveOrderFinance');
+
+    // My Orders
+    Route::get('my-orders', 'OrderController@myOrders');
+
+    // My Order Details
+    Route::post('my-order-details', 'OrderController@myOrderDetails');
+
+    // Bank Transfer
+    Route::post('bank-transfer', 'BankTransferController@store');
+
+    // Bank Transfer
+    Route::post('change-language', 'AuthController@changeLanguage');
+
 });
+
 
 
 Route::group(['namespace'  => 'Api'], function() {
@@ -39,10 +59,9 @@ Route::group(['namespace'  => 'Api'], function() {
     // Payment Setting Api
     Route::get('checkout', 'CheckoutController@getPaymentSetting');
 
-    // Order Finance Api
-    Route::post('order-finance', 'CheckoutController@saveOrderFinance');
-
     // Order Items Api
     Route::post('order-items', 'CheckoutController@saveOrderItems');
+
+
 
 });

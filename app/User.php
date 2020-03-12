@@ -5,6 +5,7 @@ namespace App;
 use App\Models\Order;
 use App\Models\Status;
 use App\Models\TotalUserOrders;
+use App\Models\Verification;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -55,5 +56,10 @@ class User extends Authenticatable
     public function orders()
     {
         return $this->hasMany(Order::class, 'user_id');
+    }
+
+    public function verification()
+    {
+        return $this->hasOne(Verification::class, 'user_id');
     }
 }

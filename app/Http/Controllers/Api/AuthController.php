@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Mail\VerifyUser;
+use App\Models\Verification;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Contracts\View\Factory;
@@ -21,10 +23,31 @@ class AuthController extends Controller
     public $successStatus = 200;
 
     /**
-     * login api
+     * Login api
      *
      * @param Request $request
      * @return Response
+     *
+     * Method: POST
+     ***********************************************************
+     * Inputs
+     ***********************************************************
+     * 'email' => 'string'
+     * 'password' => 'string'
+     * 'mobile_token' => 'string'
+     ***********************************************************
+     * Headers:
+     ***********************************************************
+     * Content-Type  => application/json
+     * Accept  => application/json
+     ***********************************************************
+     * Response Codes:
+     ***********************************************************
+     * 405 => Email is Empty
+     * 406 => Password is Empty
+     * 407 => Mobile Token is Empty
+     * 401 => Login Faild
+     * 200 => Logged In Successfully
      */
     public function login(Request $request)
     {
@@ -77,6 +100,38 @@ class AuthController extends Controller
      *
      * @param Request $request
      * @return Response
+     *
+     *
+     ***********************************************************
+     * Method: POST
+     ***********************************************************
+     * Inputs
+     ***********************************************************
+     * 'name' => 'string'
+     * 'phone' => 'string'
+     * 'email' => 'string'
+     * 'password' => 'string'
+     * 'platform' => 'integer'  // If Android Enter 1 If IOS Enter 2
+     * 'lang' => 'string'  // ar or en
+     * 'mobile_token' => 'string'
+     ***********************************************************
+     * Headers:
+     ***********************************************************
+     * Content-Type  => application/json
+     * Accept  => application/json
+     ***********************************************************
+     * Response Codes:
+     ***********************************************************
+     * 402 => Email Has Been Taken
+     * 405 => Name is Empty or Less Than Two Characters
+     * 406 => Phone is Empty or Less than 8 numbers
+     * 407 => Password is required or less than 8 chars
+     * 408 => platform is required
+     * 409 => mobile token is required
+     * 410 => lang is required
+     * 411 => email is required
+     * 200 => registered Successfully
+     *
      */
     public function register(Request $request)
     {
@@ -86,42 +141,47 @@ class AuthController extends Controller
         $input['image_url'];
         // Validate Email is Unique
         $validator = Validator::make($request->all(), [
-            'email' => 'required|email|unique:users',
+            'email' => 'unique:users',
         ]);
 
         // if email has been taken
         if ($validator->fails()) {
-            return response()->json(['error'=>$validator->errors()], 402);
+            return response()->json(['status' => 402,'error'=> 'Email Has Been Taken'], 402);
         }
         // Check Existence of Name
         elseif (empty($input['name']) || strlen($input['name']) < 2)
         {
-            return response()->json(['error' => 'User Name Must Be at Least 2 Chars'], 405);
+            return response()->json(['status' => 405,'error' => 'User Name Must Be at Least 2 Chars'], 405);
         }
         // Check Phone
         elseif (empty($input['phone']) || strlen($input['phone']) < 8)
         {
-            return response()->json(['error' => 'Phone Must Be at Least 10 Numbers'], 406);
+            return response()->json(['status' => 406,'error' => 'Phone Must Be at Least 10 Numbers'], 406);
         }
         // Check Password
         elseif (empty($input['password']) || strlen($input['password']) < 8)
         {
-            return response()->json(['error' => 'Password Must Be at Least 8 Letters'], 407);
+            return response()->json(['status' => 407,'error' => 'Password Must Be at Least 8 Letters'], 407);
+        }
+        // Check Email
+        elseif (empty($input['email']))
+        {
+            return response()->json(['status' => 411,'error' => 'Email Is Required'], 411);
         }
         // Check Platform
         elseif (empty($input['platform']))
         {
-            return response()->json(['error' => 'Platform is Required'], 408);
+            return response()->json(['status' => 408,'error' => 'Platform is Required'], 408);
         }
         // Check Mobile Token
         elseif (empty($input['mobile_token']))
         {
-            return response()->json(['error' => 'Mobile Token Is Required'], 409);
+            return response()->json(['status' => 409,'error' => 'Mobile Token Is Required'], 409);
         }
         // Check lang
         elseif (empty($input['lang']))
         {
-            return response()->json(['error' => 'Lang Is Required'], 410);
+            return response()->json(['status' => 410,'error' => 'Lang Is Required'], 410);
         }
 
         $user = new User();
@@ -154,6 +214,14 @@ class AuthController extends Controller
             'phone' => $registered_user->phone,
             'lang'  => $registered_user->lang
         ];
+
+        $verification = new Verification();
+        $verification->code = rand(1000, 9999);
+        $verification->user_id = $user->id;
+        $verification->save();
+
+        Mail::to($user->email)->send(new VerifyUser($user, $verification->code));
+
         return response()->json(['token'=>$token, 'userInfo' => $userInfo], $this->successStatus);
     }
 
@@ -234,6 +302,21 @@ class AuthController extends Controller
     }
 
 
+    /**
+     *
+     ***********************************************************
+     * Method: POST
+     ***********************************************************
+     ***********************************************************
+     * Headers:
+     ***********************************************************
+     * Content-Type  => application/json
+     * Accept  => application/json
+     * token  => Bearer
+     ***********************************************************
+     * Response Codes:
+     ***********************************************************
+    */
     public function logout(Request $request)
     {
         $user = Auth::user();
@@ -342,7 +425,7 @@ class AuthController extends Controller
     }
 
 
-    public function changeLang(Request $request)
+    public function changeLanguage(Request $request)
     {
         $input = $request->all();
 
@@ -351,10 +434,75 @@ class AuthController extends Controller
             return response()->json(['status' => 402, 'error' => 'Lang Is Required'], 402);
         }
 
-        $user = UserDetails::where('user_id', Auth::user()->id)->first() ;
+        $user = User::where('id', Auth::user()->id)->first();
         $user->lang = $input['lang'];
         $user->save();
 
         return \response()->json(['status' => 200, 'message' => 'Language Has Been Updated Successfully To ' . $input['lang']], 200);
+    }
+
+
+
+    /**
+     *
+     ***********************************************************
+     * Method: POST
+     ***********************************************************
+     * Inputs
+     ***********************************************************
+     * 'user_id' => integer
+     * 'code' => string
+     ***********************************************************
+     * Headers:
+     ***********************************************************
+     * Content-Type  => application/json
+     * Accept  => application/json
+     ***********************************************************
+     * Response Codes:
+     ***********************************************************
+     * 402 => UserID Is Required
+     * 403 => Code is Wrong
+     * 404 => User Not Found
+     * 405 => Code is Expired, Check New Code
+     * 200 => Verified
+    */
+    public function verify(Request $request)
+    {
+        $user = User::find($request->user_id);
+        if (empty($request->user_id))
+        {
+            return \response()->json(['status' => 402, 'message' => 'UserID Is Required'], 402);
+        }
+
+        if (!$user)
+        {
+            return \response()->json(['status' => 404, 'message' => 'User Not Found'], 404);
+        }
+
+        $userCode = Verification::where('user_id', $user->id)->first();
+
+        if (!$userCode)
+        {
+            $verification = new Verification();
+            $verification->code = rand(1000, 9999);
+            $verification->user_id = $user->id;
+            $verification->save();
+
+            Mail::to($user->email)->send(new VerifyUser($user, $verification->code));
+
+            return \response()->json(['status' => 405, 'message' => 'Code Has Been Expired, Check New Code on Your Mail'], 405);
+        }
+
+        if ($request->code == $userCode->code)
+        {
+            $user->email_verified_at = time();
+            $user->save();
+            return \response()->json(['status' => 200, 'message' => 'User Has Been Verified Successfully'], 200);
+        }
+
+        else
+        {
+            return \response()->json(['status' => 403, 'message' => 'Code is Wrong'], 403);
+        }
     }
 }

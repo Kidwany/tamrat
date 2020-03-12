@@ -3,8 +3,12 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\OrderFinanceDetailsResource;
+use App\Http\Resources\OrderItemsResource;
 use App\Models\Discount;
 use App\Models\Order;
+use App\Models\OrderFinance;
+use App\Models\OrderItems;
 use App\Models\PaymentSetting;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -49,62 +53,48 @@ class CheckoutController extends Controller
 
     }
 
-    public function saveOrderFinance(Request $request)
-    {
-        $order = Order::with('orderFinance')->find($request->order_id);
-
-        if (empty($request->sub_total))
-        {
-            return response()->json(['status' => 402, 'message' => 'Sub Total is Required'], 402);
-        }
-        elseif (empty($request->tax))
-        {
-            return response()->json(['status' => 403, 'message' => 'Tax is Required'], 403);
-        }
-        elseif (empty($request->delivery))
-        {
-            return response()->json(['status' => 405, 'message' => 'Delivery is Required'], 405);
-        }
-        elseif (empty($request->discount))
-        {
-            return response()->json(['status' => 406, 'message' => 'Discount is Required'], 406);
-        }
-        elseif (empty($request->total))
-        {
-            return response()->json(['status' => 407, 'message' => 'Total is Required'], 407);
-        }
-        elseif (empty($request->order_id))
-        {
-            return response()->json(['status' => 408, 'message' => 'Order ID is Required'], 408);
-        }
-        elseif (!$order)
-        {
-            return response()->json(['status' => 404, 'message' => 'Order Not Found'], 408);
-        }
-
-
-
-        $order->orderFinance()->create([
-            'order_id' => $order->id,
-            'sub_total' => $request->sub_total,
-            'tax' => $request->tax,
-            'delivery' => $request->delivery,
-            'discount' => $request->discount,
-            'total' => $request->total,
-        ]);
-
-        return response()->json(['status' => 200, 'message' => 'Order Finance Details Added Successfully and waiting Payment']);
-
-
-    }
-
+    /**
+     *
+     ***********************************************************
+     * Method: POST
+     ***********************************************************
+     * Inputs
+     ***********************************************************
+     * 'product_id' => integer
+     * 'quantity' => integer
+     * 'mosque' => 'string'
+     * 'city' => 'string'
+     * 'lat' => 'string'
+     * 'long' => 'string'
+     * 'address' => 'text'
+     * 'name' => 'string'
+     * 'phone' => 'string'
+     * 'notes' => 'text'
+     ***********************************************************
+     * Headers:
+     ***********************************************************
+     * Content-Type  => application/json
+     * Accept  => application/json
+     ***********************************************************
+     * Response Codes:
+     ***********************************************************
+     * 400 => Product ID in Index is Required
+     * 402 => Items Can't Be Empty
+     * 403 => Quantity in Index is Required
+     * 405 => Mosque in Index is Required
+     * 406 => City in Index is Required
+     * 407 => Name in Index is Required
+     * 408 => Phone in Index is Required
+     * 409 => Lat in Index is Required
+     * 410 => Long in Index is Required
+     * 200 => registered Successfully
+     *
+    */
     public function saveOrderItems(Request $request)
     {
-        $input = $request->all();
-
         if (empty($request->items))
         {
-            return response()->json(['status' => 402, 'message' => 'Items Can\'t'], 402);
+            return response()->json(['status' => 402, 'message' => 'Items Can\'t Be Empty'], 402);
         }
 
         $order = new Order();
@@ -157,6 +147,7 @@ class CheckoutController extends Controller
                 'item_id' => $item->id,
                 'mosque' => $value['mosque'],
                 'city' => $value['city'],
+                'address' => $value['address'],
                 'mosque_lat' => $value['lat'],
                 'mosque_long' => $value['long'],
                 'name' => $value['name'],
