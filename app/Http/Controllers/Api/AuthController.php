@@ -220,7 +220,7 @@ class AuthController extends Controller
         $verification->user_id = $user->id;
         $verification->save();
 
-        Mail::to($user->email)->send(new VerifyUser($user, $verification->code));
+        //Mail::to($user->email)->send(new VerifyUser($user, $verification->code));
 
         return response()->json(['token'=>$token, 'userInfo' => $userInfo], $this->successStatus);
     }
