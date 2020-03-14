@@ -32,8 +32,20 @@ Route::group(['namespace' => 'Dashboard', 'prefix' => 'tamra-admin', 'middleware
     Route::resource('bank-transfer', 'BankTransferController');
 
     Route::resource('notification', 'NotificationController');
+
+    Route::resource('offer', 'OfferController');
+
+    Route::resource('payment-setting', 'PaymentSettingController');
+
+    Route::get('/logout', 'DashboardController@logout');
+
+
 });
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+
+Route::get('reset/password/{token}', 'Api\AuthController@resetPasswordView');
+Route::post('update-password', 'Api\AuthController@resetPassword');

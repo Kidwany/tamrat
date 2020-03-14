@@ -19,7 +19,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $updated_at
  * @property Image $image
  * @property Status $status
- * @property OrderItem[] $orderItems
+ * @property OrderItems[] $orderItems
  */
 class Product extends Model
 {

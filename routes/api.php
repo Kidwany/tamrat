@@ -25,7 +25,6 @@ Route::group(['prefix' => 'auth', 'namespace'  => 'Api'], function() {
     Route::post('verify', 'AuthController@verify');
     // Reset Password Api
     Route::post('reset-password', 'AuthController@sendResetPasswordEmail');
-    //Route::post('send-reset-email', 'AuthController@reset');
 });
 
 
@@ -33,7 +32,7 @@ Route::group(['prefix' => 'auth', 'namespace'  => 'Api'], function() {
 Route::group(['middleware' => 'auth:api', 'namespace'  => 'Api'], function() {
 
     // Order Finance Api
-    Route::post('order-finance', 'CheckoutController@saveOrderFinance');
+    Route::post('order-finance', 'OrderController@saveOrderFinance');
 
     // My Orders
     Route::get('my-orders', 'OrderController@myOrders');
@@ -62,6 +61,6 @@ Route::group(['namespace'  => 'Api'], function() {
     // Order Items Api
     Route::post('order-items', 'CheckoutController@saveOrderItems');
 
-
-
 });
+
+

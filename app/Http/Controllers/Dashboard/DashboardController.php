@@ -11,4 +11,11 @@ class DashboardController extends Controller
     {
         return view('dashboard.welcome');
     }
+
+    public function logout()
+    {
+        auth()->logout();
+        // redirect to homepage
+        return redirect('/login');
+    }
 }

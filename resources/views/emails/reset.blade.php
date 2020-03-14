@@ -178,11 +178,11 @@
                 <img style="display: none" src="http://tamraat.com/dashboard/assets/images/logo-3.png" class="email-logo">
             </div>
             <div class="row username">
-                <h4>مرحبا <strong>{{$username}}</strong></h4>
+                <h4>مرحبا <strong>{{$data['data']->name}}</strong></h4>
             </div>
             <div class="row approve d-flex flex-row justify-content-center">
                 <div style="margin-bottom: 25px; width: 100%">
-                    <p class="text-center font-weight-light main-color" style="margin: auto; font-family: 'Almarai', sans-serif;">شكرا على تسجيلك في تطبيق  <span class="app-color">تمرات </span> من فضلك قم بتفعيل الحساب </p>
+                    <p class="text-center font-weight-light main-color" style="margin: auto; font-family: 'Almarai', sans-serif;">شكرا على تسجيلك في تطبيق  <span class="app-color">تمرات </span> من فضلك قم بإعادة تعيين كلمة السر </p>
                 </div>
             </div>
 
@@ -197,45 +197,19 @@
                     <div class="email-desc">
                         <div class="col-md-10">
                             <p class="main-color font-weight-light text-center" style="font-family: 'Almarai', Arial, sans-serif;">
-                                 قم بنسخ كود التفعيل الخاص بحسابك على تطبيق تمرات و ادخله في المكان المخصص في التطبيق
+                                قم بالضغط على رابط التفعيل بالأسفل و اعد تعيين كلمة السر
                             </p>
                         </div>
                     </div>
 
-                    <div class="code">
-                        <p class="main-color text-center">
-                            <strong>{{$code}}</strong>
-                        </p>
-                    </div>
+                    @component('mail::button', ['url' => url('reset/password/' . $data['token'])])
+                        اضغط هنا لإعادة التعيين
+                    @endcomponent
 
                     <hr>
                 </div>
 
                 <div class="email-white-space">
-                    <div class="download-section" style="width: 100%; margin-top: 30px">
-                        <div style="margin: auto">
-                            <h4 class="main-color text-center" style="padding-top: 30px">قم بتحميل تطبيق تمرات الآن !!</h4>
-                        </div>
-                    </div>
-
-                    <div class="download-text">
-                        <div class="col-sm-10 ">
-                            <p class="main-color font-weight-light text-center">
-                                قم بتحميل تطبيق تمرات و اختر من بين اكثر من 2000 مسجد في مكة و المدينة و قم بتوصيل التمور اليهم
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="download-links">
-                        <div class="d-flex flex-row justify-content-center" style="width: 100%">
-                            <a href="#" style="padding: 25px 10px 25px 60px; width: 50%">
-                                <img src="https://www.konsilmed.com/website/images/bkgs/google-play.png" style="float: right">
-                            </a>
-                            <a href="#" style="padding: 25px 60px 25px 10px; width: 50%">
-                                <img src="https://www.konsilmed.com/website/images/bkgs/app-store.png" style="float: left">
-                            </a>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>

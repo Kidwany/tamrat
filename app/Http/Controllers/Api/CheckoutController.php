@@ -21,9 +21,8 @@ class CheckoutController extends Controller
     public function getPaymentSetting()
     {
         $todayDate = Carbon::today();
-        $discount = Discount::where('date', $todayDate)->first();
+        $discount = Discount::where('date_start', '<=', $todayDate)->where('date_end', '>=', $todayDate)->first();
         $paymentInfo = PaymentSetting::first();
-
 
         if ($discount)
         {
@@ -31,21 +30,22 @@ class CheckoutController extends Controller
                 [
                     'status' => 200,
                     'data' => [
-                        'discount' => $discount->percentage,
-                        'delivery' => $discount->delivery,
-                        'tax' => $paymentInfo->tax
+                        'discount' => floatval($discount->percentage) ,
+                        'delivery' => floatval($discount->delivery) ,
+                        'tax' => floatval($paymentInfo->tax)
                     ]
                 ], 200);
         }
         else
         {
+
             return response()->json(
                 [
                     'status' => 200,
                     'data' => [
                         'discount' => 0,
-                        'delivery' => $paymentInfo->delivery,
-                        'tax' => $paymentInfo->tax
+                        'delivery' => floatval($paymentInfo->delivery),
+                        'tax' => floatval($paymentInfo->tax)
                     ]
                 ]
                 , 200);
@@ -155,6 +155,9 @@ class CheckoutController extends Controller
                 'notes' => $value['notes'],
             ]);
         }
+
+        $order->orderFinance()->create(['order_id' => $order->id]);
+
 
         return response()->json(['status' => 200, 'message' => 'Order Items Has Been Added Successfully', 'data' => ['order_id' => $order->id] ], 200);
     }

@@ -34,7 +34,7 @@
                             <div class="row">
                                 <div class="col-xl-4 col-lg-4 col-md-12">
                                     <div class="preview preview-pic tab-content">
-                                        <div class="tab-pane active" id="product_1"><img src="{{assetPath('dashboard/assets/images/transfer/1.jpg')}}" class="img-fluid" alt="" /></div>
+                                        <div class="tab-pane active" id="product_1"><img src="{{$transfer->image_url}}" class="img-fluid" alt="" /></div>
                                         {{--<div class="tab-pane" id="product_2"><img src="assets/images/ecommerce/2.png" class="img-fluid" alt=""/></div>
                                         <div class="tab-pane" id="product_3"><img src="assets/images/ecommerce/3.png" class="img-fluid" alt=""/></div>
                                         <div class="tab-pane" id="product_4"><img src="assets/images/ecommerce/4.png" class="img-fluid" alt=""/></div>--}}

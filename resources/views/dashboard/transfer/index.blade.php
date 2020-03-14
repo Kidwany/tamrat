@@ -66,7 +66,7 @@
                                         @foreach($transfers as $transfer)
                                             <tr>
                                                 <td>{{$transfer->id}}</td>
-                                                <td><img src="{{assetPath($transfer->image->path)}}" style="width: 50px; height: 50px; object-fit: cover"></td>
+                                                <td><img src="{{$transfer->image_url}}" style="width: 50px; height: 50px; object-fit: cover"></td>
                                                 <td>{{$transfer->order->code}} </td>
                                                 <td>{{$transfer->amount}} ر.س</td>
                                                 <td> {{$transfer->created_at->diffForHumans()}} </td>

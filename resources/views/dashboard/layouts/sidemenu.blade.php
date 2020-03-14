@@ -268,14 +268,13 @@
             </li>
             <li><a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-local-offer"></i><span>العروض </span></a>
                 <ul class="ml-menu">
-                    <li><a href="#"> شاهد العروض السابقة </a></li>
-                    <li><a href="#"> عرض جديد   </a></li>
+                    <li><a href="{{adminUrl('offer')}}"> شاهد العروض السابقة </a></li>
+                    <li><a href="{{adminUrl('offer/create')}}"> عرض جديد   </a></li>
                 </ul>
             </li>
             <li><a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-money"></i><span>إعدادات الدفع </span></a>
                 <ul class="ml-menu">
-                    <li><a href="#"> ضبط إعدادات الدفع </a></li>
-                    <li><a href="#"> عرض جديد   </a></li>
+                    <li><a href="{{adminUrl('payment-setting/1/edit')}}"> ضبط إعدادات الدفع </a></li>
                 </ul>
             </li>
             {{--<li><a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-swap-alt"></i><span>توصيل الطلبات</span></a>
@@ -291,11 +290,12 @@
                 </ul>
             </li>
 
-            <li><a href="#"><i class="zmdi zmdi-sign-in"></i><span>تسجيل الخروج  </span></a>
+            <li><a href="{{url('logout')}}"><i class="zmdi zmdi-sign-in"></i><span>تسجيل الخروج  </span></a>
             </li>
         </ul>
     </div>
 </aside>
+
 
 {{--<!-- Right Sidebar -->
 <aside id="rightsidebar" class="right-sidebar">

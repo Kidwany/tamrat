@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Mail\ResetPasswordEmail;
 use App\Mail\VerifyUser;
 use App\Models\Verification;
 use App\User;
@@ -21,6 +22,7 @@ class AuthController extends Controller
 
 
     public $successStatus = 200;
+
 
     /**
      * Login api
@@ -94,6 +96,7 @@ class AuthController extends Controller
             return response()->json(['error'=>'Unauthorised'], 401);
         }
     }
+
 
     /**
      * Register api
@@ -350,7 +353,7 @@ class AuthController extends Controller
                 'created_at' => Carbon::now()
             ]);
             Mail::to($user->email)->send(new ResetPasswordEmail(['data' => $user, 'token' => $token]));
-            return response()->json(['message' => 'Reset Password Link Sent Successfully to your mail'], 200);
+            return response()->json(['status' => 200, 'message' => 'Reset Password Link Sent Successfully to your mail'], 200);
         }else
         {
             return response()->json(['message' => 'Email Not Found'], 404);

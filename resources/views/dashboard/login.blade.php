@@ -48,6 +48,8 @@
                                 <h5> تسجيل الدخول</h5>
                             </div>
                             <div class="body">
+                                @include('dashboard.layouts.messages')
+
                                 <div class="input-group mb-3">
                                     <input type="email" name="email" class="form-control" placeholder="ادخل البريد الإلكتروني" required>
                                     <div class="input-group-append">
