@@ -33,6 +33,7 @@
             <!-- Basic Examples -->
             <div class="row clearfix">
                 <div class="col-lg-12">
+                    @include('dashboard.layouts.messages')
                     <div class="card">
                         <div class="header">
                             <h2><strong>قائمة </strong> مديري التطبيق </h2>
@@ -63,30 +64,25 @@
                                     </tr>
                                     </tfoot>
                                     <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>حسام الدين مصطفى</td>
-                                        <td>a.metery@gmail.com</td>
-                                        <td>+96642569845</td>
-                                        <td> <span class="badge badge-success">نشط</span> </td>
-                                        <td>منذ 3 اسبوع</td>
-                                        <td>
-                                            <a href="{{adminUrl('admin/5/edit')}}" class="btn btn-primary btn-sm"><i class="zmdi zmdi-edit"></i> </a>
-                                            <a href="{{adminUrl('admin/5/delete')}}" class="btn bg-red waves-effect btn-sm" data-toggle="modal" data-target="#delete" data-color="red"><i class="zmdi zmdi-delete"></i> </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>احمد محمود جاد </td>
-                                        <td>a.metery@gmail.com</td>
-                                        <td>+96642569845</td>
-                                        <td> <span class="badge badge-danger">معطل</span> </td>
-                                        <td>منذ 3 اسبوع</td>
-                                        <td>
-                                            <a href="{{adminUrl('admin/5/edit')}}" class="btn btn-primary btn-sm"><i class="zmdi zmdi-edit"></i> </a>
-                                            <a href="{{adminUrl('admin/5/delete')}}" class="btn bg-red waves-effect btn-sm" data-toggle="modal" data-target="#delete" data-color="red"><i class="zmdi zmdi-delete"></i> </a>
-                                        </td>
-                                    </tr>
+                                    @foreach($users as $user)
+                                        <tr>
+                                            <td>{{$user->id}}</td>
+                                            <td>{{$user->name}}</td>
+                                            <td>{{$user->email}}</td>
+                                            <td>{{$user->phone}}</td>
+                                            <td>
+                                                <span class="badge badge-{{$user->status_id == 1 ? 'success' : 'danger'}}">
+                                                        {{$user->status->title_ar}}
+                                                </span>
+                                            </td>
+                                            <td>{{$user->created_at->diffForHumans()}}</td>
+                                            <td>
+                                                <a href="{{adminUrl('admin/' . $user->id . '/edit')}}" class="btn btn-primary btn-sm"><i class="zmdi zmdi-edit"></i> </a>
+                                                <a href="#" class="btn bg-red waves-effect btn-sm" data-toggle="modal" data-target="#delete{{$user->id}}" data-color="red"><i class="zmdi zmdi-delete"></i> </a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+
                                     </tbody>
                                 </table>
                             </div>
@@ -97,20 +93,27 @@
         </div>
     </div>
 
-
-    <div class="modal fade" id="delete" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content bg-red">
-                <div class="modal-header">
-                    <h4 class="title" id="defaultModalLabel">حذف المستخدم</h4>
-                </div>
-                <div class="modal-body text-light" style="text-align: right"> هل انت متأكد من انك تريد حذف المدير <strong> حسام الدين مصطفى </strong></div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-link waves-effect text-light">حذف</button>
-                    <button type="button" class="btn btn-link waves-effect text-light" data-dismiss="modal">الغاء</button>
+    @if($users)
+        @foreach($users as $user)
+            <div class="modal fade" id="delete{{$user->id}}" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content bg-red">
+                        <div class="modal-header">
+                            <h4 class="title" id="defaultModalLabel">حذف المدير</h4>
+                        </div>
+                        <div class="modal-body text-light" style="text-align: right"> هل انت متأكد من انك تريد حذف المدير <strong> {{$user->name}} </strong></div>
+                        <form id="deleteUser{{$user->id}}" style="display: none" action="{{route('admin.destroy', $user->id)}}" method="post">
+                            @csrf
+                            @method('delete')
+                        </form>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-link waves-effect text-light" form="deleteUser{{$user->id}}">حذف</button>
+                            <button type="button" class="btn btn-link waves-effect text-light" data-dismiss="modal">الغاء</button>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
+        @endforeach
+    @endif
 
 @endsection

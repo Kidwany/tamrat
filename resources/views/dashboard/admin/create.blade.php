@@ -27,6 +27,7 @@
         </div>
 
         <div class="container-fluid">
+            @include('dashboard.layouts.messages')
             <!-- Vertical Layout -->
             <form action="{{route('admin.store')}}" method="post" enctype="multipart/form-data">
                 @csrf
@@ -53,30 +54,21 @@
                                     <div class="col-lg-6 col-md-6 col-sm-12">
                                         <label for="email_address">الجوال</label>
                                         <div class="form-group">
-                                            <input type="number" name="phone" value="{{old('phone')}}" step="any" id="email_address" class="form-control" placeholder="ادخل رقم الجوال ">
+                                            <input type="text" name="phone" value="{{old('phone')}}" step="any" id="email_address" class="form-control" placeholder="ادخل رقم الجوال ">
                                         </div>
                                     </div>
 
                                     <div class="col-lg-6 col-md-6 col-sm-12">
                                         <label for="email_address"> كلمة السر </label>
                                         <div class="form-group">
-                                            <input type="number" name="password" value="{{old('password')}}" id="email_address" class="form-control" placeholder="ادخل كلمة السر المكونة من 8 ارقام و حروف">
+                                            <input type="password" name="password" value="{{old('password')}}" id="email_address" class="form-control" placeholder="ادخل كلمة السر المكونة من 8 ارقام و حروف">
                                         </div>
                                     </div>
 
                                     <div class="col-lg-6 col-md-6 col-sm-12">
                                         <label for="email_address">تأكيد كلمة السر </label>
                                         <div class="form-group">
-                                            <input type="number" name="password-confirmation" value="{{old('password-confirmation')}}" id="email_address" class="form-control" placeholder="اعد ادخال كلمة السر">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-12">
-                                        <div class="checkbox">
-                                            <input id="remember_me" name="active" type="checkbox">
-                                            <label for="remember_me">
-                                                مدير نشط
-                                            </label>
+                                            <input type="password" name="password_confirmation" value="{{old('password-confirmation')}}" id="email_address" class="form-control" placeholder="اعد ادخال كلمة السر">
                                         </div>
                                     </div>
 

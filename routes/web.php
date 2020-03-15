@@ -16,7 +16,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::group(['namespace' => 'Dashboard', 'prefix' => 'tamra-admin', 'middleware' => 'auth'], function ()
+Route::group(['namespace' => 'Dashboard', 'prefix' => 'tamra-admin', 'middleware' => ['auth', 'Admin']], function ()
 {
 
     Route::get('/', 'DashboardController@index');

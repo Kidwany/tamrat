@@ -290,7 +290,7 @@
                 </ul>
             </li>
 
-            <li><a href="{{url('logout')}}"><i class="zmdi zmdi-sign-in"></i><span>تسجيل الخروج  </span></a>
+            <li><a href="{{adminUrl('logout')}}"><i class="zmdi zmdi-sign-in"></i><span>تسجيل الخروج  </span></a>
             </li>
         </ul>
     </div>

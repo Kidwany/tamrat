@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\User;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -14,7 +15,8 @@ class AdminController extends Controller
      */
     public function index()
     {
-        return view('dashboard.admin.index');
+        $users = User::with('status')->where('user_type_id', 2)->get();
+        return view('dashboard.admin.index', compact('users'));
     }
 
     /**
@@ -35,7 +37,24 @@ class AdminController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name'   =>  'required',
+            'email'   =>  'required|unique:users,email',
+            'password'   =>  'required|confirmed|min:8',
+            'phone'   =>  'required',
+        ], [] , [
+        ]);
+
+        $user = new User();
+        $user->name = $request->name;
+        $user->phone = $request->phone;
+        $user->password = bcrypt($request->password);
+        $user->email = $request->email;
+        $user->user_type_id = 2;
+        $user->status_id = 1;
+        $user->save();
+
+        return redirect(adminUrl('admin'))->with('create', 'تمت اضافة مدير للتطبيق بنجاح');
     }
 
     /**
@@ -57,7 +76,8 @@ class AdminController extends Controller
      */
     public function edit($id)
     {
-        return view('dashboard.admin.edit');
+        $user = User::find($id);
+        return view('dashboard.admin.edit', compact('user'));
     }
 
     /**
@@ -69,7 +89,25 @@ class AdminController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = User::find($id);
+
+        $request->validate([
+            'name'   =>  'required',
+            'email'   =>  'required|unique:users,id,'. $id .'|max:100',
+            'password'   =>  'required|confirmed|min:8',
+            'phone'   =>  'required',
+        ], [] , [
+        ]);
+
+        $user->name = $request->name;
+        $user->phone = $request->phone;
+        $user->password = bcrypt($request->password);
+        $user->email = $request->email;
+        $user->user_type_id = 2;
+        $user->status_id = 1;
+        $user->save();
+
+        return redirect(adminUrl('admin'))->with('update', 'تمت تعديل مدير للتطبيق بنجاح');
     }
 
     /**
@@ -80,6 +118,9 @@ class AdminController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::find($id);
+        $user->delete();
+
+        return redirect(adminUrl('admin'))->with('update', 'تم حذف مدير للتطبيق بنجاح');
     }
 }

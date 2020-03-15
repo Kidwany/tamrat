@@ -27,8 +27,9 @@
         </div>
 
         <div class="container-fluid">
+            @include('dashboard.layouts.messages')
             <!-- Vertical Layout -->
-            <form action="{{route('admin.update', 5)}}" method="post" enctype="multipart/form-data">
+            <form action="{{route('admin.update', $user->id)}}" method="post" enctype="multipart/form-data">
                 @csrf
                 @method('patch')
                 <div class="row clearfix">
@@ -39,44 +40,35 @@
                                     <div class="col-lg-6 col-md-6 col-sm-12">
                                         <label for="email_address"> الإسم </label>
                                         <div class="form-group">
-                                            <input type="text" name="name" value="{{old('name')}}" id="email_address" class="form-control" placeholder="ادخل اسم المدير" required>
+                                            <input type="text" name="name" value="{{$user->name}}" id="email_address" class="form-control" placeholder="ادخل اسم المدير" required>
                                         </div>
                                     </div>
 
                                     <div class="col-lg-6 col-md-6 col-sm-12">
                                         <label for="email_address">البريد الإلكتروني</label>
                                         <div class="form-group">
-                                            <input type="email" name="email" value="{{old('email')}}" id="email_address" class="form-control" placeholder="ادخل البريد الإلكتروني" required>
+                                            <input type="email" name="email" value="{{$user->email}}" id="email_address" class="form-control" placeholder="ادخل البريد الإلكتروني" required>
                                         </div>
                                     </div>
 
                                     <div class="col-lg-6 col-md-6 col-sm-12">
                                         <label for="email_address">الجوال</label>
                                         <div class="form-group">
-                                            <input type="number" name="phone" value="{{old('phone')}}" step="any" id="email_address" class="form-control" placeholder="ادخل رقم الجوال ">
+                                            <input type="tel" name="phone" value="{{$user->phone}}" step="any" id="email_address" class="form-control" placeholder="ادخل رقم الجوال ">
                                         </div>
                                     </div>
 
                                     <div class="col-lg-6 col-md-6 col-sm-12">
                                         <label for="email_address"> كلمة السر </label>
                                         <div class="form-group">
-                                            <input type="number" name="password" value="{{old('password')}}" id="email_address" class="form-control" placeholder="ادخل كلمة السر المكونة من 8 ارقام و حروف">
+                                            <input type="password" name="password" value="" id="email_address" class="form-control" placeholder="ادخل كلمة السر المكونة من 8 ارقام و حروف">
                                         </div>
                                     </div>
 
                                     <div class="col-lg-6 col-md-6 col-sm-12">
                                         <label for="email_address">تأكيد كلمة السر </label>
                                         <div class="form-group">
-                                            <input type="number" name="password-confirmation" value="{{old('password-confirmation')}}" id="email_address" class="form-control" placeholder="اعد ادخال كلمة السر">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-12">
-                                        <div class="checkbox">
-                                            <input id="remember_me" name="active" type="checkbox">
-                                            <label for="remember_me">
-                                                مدير نشط
-                                            </label>
+                                            <input type="password" name="password_confirmation" value="" id="email_address" class="form-control" placeholder="اعد ادخال كلمة السر">
                                         </div>
                                     </div>
 
