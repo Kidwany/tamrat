@@ -53,20 +53,21 @@ class OrderController extends Controller
      */
     public function saveOrderFinance(Request $request)
     {
+        $input = $request->all();
 
         if (empty($request->sub_total))
         {
             return response()->json(['status' => 402, 'message' => 'Sub Total is Required'], 402);
         }
-        elseif (empty($request->tax))
+        elseif (!isset($input['tax']))
         {
             return response()->json(['status' => 403, 'message' => 'Tax is Required'], 403);
         }
-        elseif (empty($request->delivery))
+        elseif (!isset($input['delivery']))
         {
             return response()->json(['status' => 405, 'message' => 'Delivery is Required'], 405);
         }
-        elseif (empty($request->discount))
+        elseif (!isset($input['discount']))
         {
             return response()->json(['status' => 406, 'message' => 'Discount is Required'], 406);
         }
@@ -118,43 +119,6 @@ class OrderController extends Controller
 
     }
 
-    /**
-     *
-     * ***********************************************************
-     * Method: POST
-     ***********************************************************
-     * Inputs
-     ***********************************************************
-     * 'product_id' => integer
-     * 'quantity' => integer
-     * 'mosque' => 'string'
-     * 'city' => 'string'
-     * 'lat' => 'string'
-     * 'long' => 'string'
-     * 'address' => 'text'
-     * 'name' => 'string'
-     * 'phone' => 'string'
-     * 'notes' => 'text'
-     ***********************************************************
-     * Headers:
-     ***********************************************************
-     * Content-Type  => application/json
-     * Accept  => application/json
-     ***********************************************************
-     * Response Codes:
-     ***********************************************************
-     * 400 => Product ID in Index is Required
-     * 402 => Items Can't Be Empty
-     * 403 => Quantity in Index is Required
-     * 405 => Mosque in Index is Required
-     * 406 => City in Index is Required
-     * 407 => Name in Index is Required
-     * 408 => Phone in Index is Required
-     * 409 => Lat in Index is Required
-     * 410 => Long in Index is Required
-     * 200 => registered Successfully
-     *
-    */
     public function myOrders()
     {
         $orders = Order::with('orderFinance')

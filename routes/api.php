@@ -43,8 +43,11 @@ Route::group(['middleware' => 'auth:api', 'namespace'  => 'Api'], function() {
     // Bank Transfer
     Route::post('bank-transfer', 'BankTransferController@store');
 
-    // Bank Transfer
+    // Change Language
     Route::post('change-language', 'AuthController@changeLanguage');
+
+    // Logout
+    Route::get('logout', 'AuthController@logout');
 
 });
 
