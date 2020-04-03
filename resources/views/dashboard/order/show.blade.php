@@ -72,7 +72,11 @@
                                                             <td><img src="{{assetPath($item->product->image->path)}}" width="40" alt="Product img"></td>
                                                             <td> {{$item->product->title_ar}} </td>
                                                             <td class="hidden-sm-down">
-                                                                {{$item->orderDeliveryDetails->city}} - {{$item->orderDeliveryDetails->mosque}}
+                                                                <strong>المدينة: </strong> {{$item->orderDeliveryDetails->city}}
+                                                                <br>
+                                                                <strong>المسجد: </strong> {{$item->orderDeliveryDetails->mosque}}
+                                                                <br>
+                                                                <strong>العنوان: </strong> {{$item->orderDeliveryDetails->address}}
                                                                 <br>
                                                                 <strong>اسم المستلم: </strong>{{$item->orderDeliveryDetails->name}}
                                                                 <br>

@@ -211,7 +211,7 @@
                     <hr>
                 </div>
 
-                <div class="email-white-space">
+                {{--<div class="email-white-space">
                     <div class="download-section" style="width: 100%; margin-top: 30px">
                         <div style="margin: auto">
                             <h4 class="main-color text-center" style="padding-top: 30px">قم بتحميل تطبيق تمرات الآن !!</h4>
@@ -236,7 +236,7 @@
                             </a>
                         </div>
                     </div>
-                </div>
+                </div>--}}
             </div>
         </div>
     </div>

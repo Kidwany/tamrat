@@ -64,6 +64,9 @@ Route::group(['namespace'  => 'Api'], function() {
     // Order Items Api
     Route::post('order-items', 'CheckoutController@saveOrderItems');
 
+    // Update Token Api
+    Route::post('update-token', 'UpdateTokenController@updateToken');
+
 });
 
 

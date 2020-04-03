@@ -1,5 +1,5 @@
 @extends('dashboard.layouts.layouts')
-@section('title', 'الطلبات')
+@section('title', 'الإشعارات')
 @section('customizedStyle')
 @endsection
 
@@ -15,11 +15,11 @@
         <div class="block-header">
             <div class="row">
                 <div class="col-lg-7 col-md-6 col-sm-12">
-                    <h2>الطلبات</h2>
+                    <h2>الإشعارات</h2>
                     <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{adminUrl('/')}}"><i class="zmdi zmdi-home"></i> تمرة </a></li>
-                        <li class="breadcrumb-item"><a href="javascript:void(0);">الطلبات </a></li>
-                        <li class="breadcrumb-item active"> جميع الطلبات </li>
+                        <li class="breadcrumb-item"><a href="{{adminUrl('/')}}"><i class="zmdi zmdi-home"></i> تمرات </a></li>
+                        <li class="breadcrumb-item"><a href="javascript:void(0);">الإشعارات </a></li>
+                        <li class="breadcrumb-item active"> جميع الإشعارات </li>
                     </ul>
                     <button class="btn btn-primary btn-icon mobile_menu" type="button"><i class="zmdi zmdi-sort-amount-desc"></i></button>
                 </div>
@@ -35,52 +35,42 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="header">
-                            <h2><strong>قائمة </strong> الطلبات  </h2>
+                            <h2><strong>قائمة </strong> الإشعارات  </h2>
                         </div>
                         <div class="body">
                             <div class="table-responsive">
+                                @include('dashboard.layouts.messages')
                                 <table id="ssss" class="table table-bordered table-striped table-hover js-basic-example dataTable">
                                     <thead>
                                     <tr>
                                         <th>م</th>
-                                        <th>الكود</th>
-                                        <th> قيمة الطلب </th>
-                                        <th> حالة الطلب </th>
-                                        <th> تم الطلب </th>
-                                        <th>تعديل</th>
+                                        <th>العنوان</th>
+                                        <th> الوصف </th>
+                                        <th> تم الإرسال بواسطة </th>
+                                        <th> تم الإرسال </th>
                                     </tr>
                                     </thead>
                                     <tfoot>
                                     <tr>
                                         <th>م</th>
-                                        <th>الكود</th>
-                                        <th> قيمة الطلب </th>
-                                        <th> حالة الطلب </th>
-                                        <th> تم الطلب </th>
-                                        <th>تعديل</th>
+                                        <th>العنوان</th>
+                                        <th> الوصف </th>
+                                        <th> تم الإرسال بواسطة </th>
+                                        <th> تم الإرسال </th>
                                     </tr>
                                     </tfoot>
                                     <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>#55425565</td>
-                                        <td>850 ر.س</td>
-                                        <td><span class="badge badge-info">تم الشحن</span></td>
-                                        <td>منذ 1 ساعة</td>
-                                        <td>
-                                            <a href="{{adminUrl('order/5')}}" class="btn btn-primary btn-sm"><i class="zmdi zmdi-eye"></i> </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>#55425565</td>
-                                        <td>1350 ر.س</td>
-                                        <td><span class="badge badge-info">تم تأكيد الطلب</span></td>
-                                        <td>منذ 3 اسبوع</td>
-                                        <td>
-                                            <a href="{{adminUrl('order/5')}}" class="btn btn-primary btn-sm"><i class="zmdi zmdi-eye"></i> </a>
-                                        </td>
-                                    </tr>
+                                    @if($notifications)
+                                        @foreach($notifications as $notification)
+                                            <tr>
+                                                <td>{{$notification->id}}</td>
+                                                <td>{{$notification->title}}</td>
+                                                <td>{{$notification->data}}</td>
+                                                <td>{{$notification->sentFrom->name}}</td>
+                                                <td>{{$notification->created_at->diffForHumans()}}</td>
+                                            </tr>
+                                        @endforeach
+                                    @endif
                                     </tbody>
                                 </table>
                             </div>

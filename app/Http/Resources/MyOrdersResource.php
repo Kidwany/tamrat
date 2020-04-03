@@ -22,7 +22,7 @@ class MyOrdersResource extends Resource
             'id' => $this->id,
             'code' => $this->code,
             'price' => $this->orderFinance->total,
-            'date' => $this->created_at,
+            'date' => $this->created_at->format('d M Y'),
         ];
     }
 }

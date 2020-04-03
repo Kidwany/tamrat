@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Mail\ResetPasswordEmail;
 use App\Mail\VerifyUser;
+use App\Models\UserToken;
 use App\Models\Verification;
 use App\User;
 use Carbon\Carbon;
@@ -87,6 +88,34 @@ class AuthController extends Controller
                 'phone' => $user->phone,
                 'lang'  => $user->lang
             ];
+
+
+            // If Token existed but user_id not assigned
+            $existedToken = $mobileToken = UserToken::where('token', $request->mobile_token)->first();
+            // if row existed with user id and token
+            $userToken = UserToken::where('user_id', $user->id)->first();
+
+            if ($existedToken)
+            {
+                $existedToken->user_id = $user->id;
+                $mobileToken->save();
+            }
+
+
+            elseif ($userToken)
+            {
+                $userToken->token = $request->mobile_token;
+                $userToken->save();
+            }
+
+            else
+            {
+                $mobileToken = new UserToken();
+                $mobileToken->user_id = $user->id;
+                $mobileToken->token = $request->mobile_token;
+                $mobileToken->save();
+            }
+            //$mobileToken->update(['token', $request->mobile_token]);
 
             return response()->json(['token' => $token, 'userInfo' => $userInfo], $this->successStatus);
 
@@ -218,12 +247,32 @@ class AuthController extends Controller
             'lang'  => $registered_user->lang
         ];
 
+
+        // Generate Verification Code
         $verification = new Verification();
         $verification->code = rand(1000, 9999);
         $verification->user_id = $user->id;
         $verification->save();
 
-        //Mail::to($user->email)->send(new VerifyUser($user, $verification->code));
+
+        // If Token existed but user_id not assigned
+        $existedToken = $mobileToken = UserToken::where('token', $request->mobile_token)->first();
+
+        if ($existedToken)
+        {
+            $existedToken->user_id = $registered_user->id;
+            $mobileToken->save();
+        }
+
+        else
+        {
+            $mobileToken = new UserToken();
+            $mobileToken->user_id = $user->id;
+            $mobileToken->token = $request->mobile_token;
+            $mobileToken->save();
+        }
+
+        Mail::to($user->email)->send(new VerifyUser($user, $verification->code));
 
         return response()->json(['token'=>$token, 'userInfo' => $userInfo], $this->successStatus);
     }

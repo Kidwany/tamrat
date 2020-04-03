@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Classes\NotificationClass;
 use App\Http\Controllers\Controller;
+use App\Models\UserToken;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class NotificationController extends Controller
 {
@@ -14,7 +17,8 @@ class NotificationController extends Controller
      */
     public function index()
     {
-        //
+        $notifications =  \App\Models\Notification::orderBy('created_at', 'desc')->get();
+        return view('dashboard.notification.index', compact('notifications'));
     }
 
     /**
@@ -24,7 +28,7 @@ class NotificationController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.notification.create');
     }
 
     /**
@@ -35,51 +39,68 @@ class NotificationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'receivers'     =>  'required|int',
+            'title'         =>  'required|min:5',
+            'desc'          =>  'required|min:5',
+        ], [] , [
+            'receivers'     =>  'Type Of  receivers',
+            'title'         =>  'Title',
+            'desc'          =>  'Description Of Notification',
+        ]);
+
+        $typeOfReceivers = $request->receivers;
+
+        // Save Notification
+        $sentNotification = new \App\Models\Notification();
+        $sentNotification->type = 'New Notification';
+        $sentNotification->notifiable_type = 'user';
+        $sentNotification->title = $request->title;
+        $sentNotification->sent_from = Auth::id();
+        $sentNotification->data = $request->desc;
+        $sentNotification->save();
+
+
+        // User want to send notification to logged in users before
+        if ($typeOfReceivers == 1)
+        {
+            $userTokens = UserToken::where('user_id', '!=', null)->get();
+
+            $tokens = [];
+            foreach ($userTokens as $userToken)
+            {
+                array_push($tokens, $userToken->token);
+            }
+            // Send Notification
+            NotificationClass::multiplePushNotification($request->title, $request->desc, array_values(array_unique($tokens)));
+            return redirect(adminUrl('notification'))->with('create', 'تم ارسال الإشعار للمستخدمين بنجاح');
+        }
+        // Send Notification to Not Logged in Users
+        elseif ($typeOfReceivers == 2)
+        {
+            $userTokens = UserToken::where('user_id', null)->get();
+            $tokens = [];
+            foreach ($userTokens as $userToken)
+            {
+                array_push($tokens, $userToken->token);
+            }
+            // Send Notification
+            NotificationClass::multiplePushNotification($request->title, $request->desc, array_values(array_unique($tokens)));
+            return redirect(adminUrl('notification'))->with('create', 'تم ارسال الإشعار للمستخدمين بنجاح');
+        }
+
+        elseif ($typeOfReceivers == 3)
+        {
+            $userTokens = UserToken::all();
+            $tokens = [];
+            foreach ($userTokens as $userToken)
+            {
+                array_push($tokens, $userToken->token);
+            }
+            // Send Notification
+            NotificationClass::multiplePushNotification($request->title, $request->desc, array_values(array_unique($tokens)));
+            return redirect(adminUrl('notification'))->with('create', 'تم ارسال الإشعار للمستخدمين بنجاح');
+        }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

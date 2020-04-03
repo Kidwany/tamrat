@@ -33,7 +33,8 @@ class VerifyUser extends Mailable
     public function build()
     {
         return $this->markdown('emails.verification')
-            ->from('info@tamraat.com', 'Tamraat')
+            ->from('tamraat.application@gmail.com', 'Tamraat')
+            ->to($this->user->email)
             ->subject('Tamrat Account Verification')
             ->with('username', $this->user->name)
             ->with('code', $this->code);
