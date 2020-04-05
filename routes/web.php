@@ -33,6 +33,8 @@ Route::group(['namespace' => 'Dashboard', 'prefix' => 'tamra-admin', 'middleware
 
     Route::resource('notification', 'NotificationController');
 
+    Route::resource('promo-code', 'PromoCodeController');
+
     Route::resource('offer', 'OfferController');
 
     Route::resource('payment-setting', 'PaymentSettingController');

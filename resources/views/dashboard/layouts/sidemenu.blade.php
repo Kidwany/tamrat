@@ -277,12 +277,12 @@
                     <li><a href="{{adminUrl('payment-setting/1/edit')}}"> ضبط إعدادات الدفع </a></li>
                 </ul>
             </li>
-            {{--<li><a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-swap-alt"></i><span>توصيل الطلبات</span></a>
+            <li><a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-money-box"></i><span>الرموز الترويجية </span></a>
                 <ul class="ml-menu">
-                    <li><a href="{{adminUrl('star')}}">جميع الطيارين </a></li>
-                    <li><a href="{{adminUrl('star/create')}}">اضافة طيار</a></li>
+                    <li><a href="{{adminUrl('promo-code/create')}}"> اضافة رمز ترويجي </a></li>
+                    <li><a href="{{adminUrl('promo-code')}}"> شاهد الرموز السابقة </a></li>
                 </ul>
-            </li>--}}
+            </li>
             <li><a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-swap-alt"></i><span>إدارة التطبيق </span></a>
                 <ul class="ml-menu">
                     <li><a href="{{adminUrl('admin')}}"> شاهد المديرين  </a></li>

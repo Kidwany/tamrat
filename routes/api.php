@@ -67,6 +67,9 @@ Route::group(['namespace'  => 'Api'], function() {
     // Update Token Api
     Route::post('update-token', 'UpdateTokenController@updateToken');
 
+    // Check Promo Api
+    Route::post('promo-code', 'PromoCodeController@check');
+
 });
 
 

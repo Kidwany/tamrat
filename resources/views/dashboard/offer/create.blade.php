@@ -62,13 +62,6 @@
                                         </div>
                                     </div>
 
-                                    {{--<div class="col-lg-6 col-md-12 col-sm-3">
-                                        <label for="email_address"> قيمة الضريبة  </label>
-                                        <div class="form-group">
-                                            <input type="number" name="tax" value="{{old('tax')}}" id="email_address" class="form-control" placeholder="ادخل قيمة الضريبة اثناء الخصم">
-                                            <p class="help-inline">ان لم تقم بإدخال اي قيمة فسوف يتم اعتماد القيمة المدخلة في اعدادات الدفع تلقائيا </p>
-                                        </div>
-                                    </div>--}}
 
                                     <div class="col-lg-6 col-md-12 col-sm-3">
                                         <label for="email_address">
