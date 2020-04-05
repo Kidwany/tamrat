@@ -186,10 +186,10 @@ class AuthController extends Controller
             return response()->json(['status' => 405,'error' => 'User Name Must Be at Least 2 Chars'], 405);
         }
         // Check Phone
-        elseif (empty($input['phone']) || strlen($input['phone']) < 8)
+        /*elseif (empty($input['phone']) || strlen($input['phone']) < 8)
         {
             return response()->json(['status' => 406,'error' => 'Phone Must Be at Least 10 Numbers'], 406);
-        }
+        }*/
         // Check Password
         elseif (empty($input['password']) || strlen($input['password']) < 8)
         {

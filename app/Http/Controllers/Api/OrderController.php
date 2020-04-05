@@ -102,6 +102,7 @@ class OrderController extends Controller
             'delivery' => $request->delivery,
             'discount' => $request->discount,
             'payment_method' => $request->payment_method,
+            'promo_code_id' => $request->promo_code_id,
             'total' => $request->total,
         ]);
 

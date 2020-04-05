@@ -35,19 +35,26 @@ class PromoCodeController extends Controller
         }
 
 
-        if ($code->delivery || $code->delivery = 0)
+        // Get Delivery Fees From Payment Setting if not included in promo
+        if ($code->delivery)
         {
             $delivery = $code->delivery;
+        }
+        elseif ($code->delivery == '0')
+        {
+            $delivery = 0;
         }
         else
         {
             $delivery = $paymentInfo->delivery;
         }
 
+
         return response()->json(
             [
                 'status' => 200,
                 'data' => [
+                    'id' => $code->id,
                     'discount' => floatval($discount) ,
                     'delivery' => floatval($delivery) ,
                     'tax' => floatval($paymentInfo->tax)
