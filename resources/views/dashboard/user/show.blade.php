@@ -70,6 +70,8 @@
                             <small class="text-muted">اللغة: </small>
                             <p>{{$user->lang ? ($user->lang == 'ar' ? 'العربية' : 'الإنجليزية') : ''}}</p>
                             <hr>
+                            <small class="text-muted">تم التسجيل في: </small>
+                            <p>{{$user->created_at->format('d M Y')}}  {{$user->created_at->format('h:i:s')}}</p>
                         </div>
                     </div>
                 </div>

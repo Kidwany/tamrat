@@ -156,8 +156,6 @@ class OrderController extends Controller
             'financeDetails' => new OrderFinanceDetailsResource($financeDetails)
         ], 200);
 
-
-
     }
 
 }

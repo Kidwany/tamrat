@@ -44,7 +44,7 @@ class OrderFinance extends Model
     /**
      * @var array
      */
-    protected $fillable = ['order_id', 'sub_total', 'discount', 'delivery', 'tax', 'total', 'notes', 'deleted_at', 'created_at', 'updated_at'];
+    protected $fillable = ['order_id', 'sub_total', 'discount', 'delivery', 'tax', 'total', 'notes', 'deleted_at', 'promo_code_id', 'created_at', 'updated_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -52,5 +52,10 @@ class OrderFinance extends Model
     public function order()
     {
         return $this->belongsTo('App\Order');
+    }
+
+    public function promoCode()
+    {
+        return $this->belongsTo(PromoCode::class, 'promo_code_id')->withDefault();
     }
 }

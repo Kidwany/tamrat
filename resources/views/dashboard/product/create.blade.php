@@ -33,49 +33,49 @@
                 @csrf
                 @method('post')
                 <div class="row clearfix">
-                    <div class="col-lg-6 col-md-12 col-sm-12">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
                         <div class="card">
                             <div class="header">
-                                <h2><strong>اضف بيانات المنتج باللغة العربية</strong></h2>
+                                <h2><strong>اضف بيانات المنتج </strong></h2>
                             </div>
                             <div class="body">
                                 <div class="row">
-                                    <div class="col-lg-12 col-md-12 col-sm-3">
+                                    <div class="col-lg-6 col-md-12 col-sm-3">
                                         <label for="email_address">اسم المنتج</label>
                                         <div class="form-group">
                                             <input type="text" name="name_ar" value="{{old('name_ar')}}" id="email_address" class="form-control" placeholder="ادخل اسم المنتج">
                                         </div>
                                     </div>
 
-                                    <div class="col-lg-12 col-md-12 col-sm-3">
+                                    <div class="col-lg-6 col-md-12 col-sm-3">
                                         <label for="email_address">وصف المنتج</label>
                                         <div class="form-group">
                                             <input type="text" name="desc_ar" value="{{old('desc_ar')}}" id="email_address" class="form-control" placeholder="ادخل وصفا دقيقا للمنتج">
                                         </div>
                                     </div>
 
-                                    <div class="col-lg-12 col-md-12 col-sm-3">
+                                    <div class="col-lg-6 col-md-12 col-sm-3">
                                         <label for="email_address">السعر</label>
                                         <div class="form-group">
                                             <input type="number" name="price" value="{{old('price')}}" step="any" id="email_address" class="form-control" placeholder="ادخل سعر المنتج بالريال السعودي">
                                         </div>
                                     </div>
 
-                                    <div class="col-lg-12 col-md-12 col-sm-3">
+                                    <div class="col-lg-6 col-md-12 col-sm-3">
                                         <label for="email_address">وزن الكرتونة</label>
                                         <div class="form-group">
                                             <input type="number" name="weight" value="{{old('weight')}}" id="email_address" class="form-control" placeholder="ادخل وزن الكرتونة بالكيلو غرام">
                                         </div>
                                     </div>
 
-                                    <div class="col-lg-12 col-md-12 col-sm-3">
+                                    <div class="col-lg-6 col-md-12 col-sm-3">
                                         <label for="email_address">صورة المنتج</label>
                                         <div class="form-group">
                                             <input type="file" name="image" id="email_address" class="form-control" placeholder="">
                                         </div>
                                     </div>
 
-                                    <div class="col-sm-12">
+                                    <div class="col-sm-6">
                                         <div class="checkbox">
                                             <input id="remember_me" name="active" type="checkbox" value="1">
                                             <label for="remember_me">
@@ -89,7 +89,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-6 col-md-12 col-sm-12">
+                    {{--<div class="col-lg-6 col-md-12 col-sm-12">
                         <div class="card">
                             <div class="header">
                                 <h2><strong>اضف بيانات المنتج باللغة الإنجليزية</strong></h2>
@@ -112,7 +112,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>--}}
                 </div>
             </form>
         </div>

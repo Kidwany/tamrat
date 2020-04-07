@@ -1,5 +1,5 @@
 @extends('dashboard.layouts.layouts')
-@section('title', 'المستخدمين')
+@section('title', 'تفاصيل الطلب')
 @section('customizedStyle')
 @endsection
 
@@ -46,6 +46,9 @@
                                             <p class="mb-0"><strong>تاريخ الطلب: </strong> {{$order->created_at->format('d M Y')}}</p>
                                             <p class="mb-0"><strong>حالة الطلب: </strong> <span class="badge badge-success"> {{$order->status->title_ar}} </span></p>
                                             <p class="mb-0"><strong>طريقة الدفع: </strong> <span class="badge badge-primary">  {{$order->orderFinance->payment_method}} </span></p>
+                                            @if($order->orderFinance->promo_code_id)
+                                                <p class="mb-0"><strong>كود الخصم: </strong> <span class="badge badge-default">  {{$order->orderFinance->promoCode->code}} </span></p>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -142,6 +145,9 @@
                                                 <li><strong>الإجمالي:-</strong> {{$order->orderFinance->sub_total}}</li>
                                                 <li class="text-danger"><strong>الخصم:-</strong>  {{$order->orderFinance->discount}}%</li>
                                                 <li><strong>الضريبة:-</strong>  {{$order->orderFinance->tax}}%</li>
+                                                @if($order->orderFinance->promo_code_id)
+                                                    <li><strong>الخصم من كود كود الخصم :-</strong>  {{$order->orderFinance->promoCode->amount}}ر.س </li>
+                                                @endif
                                                 <li><strong>التوصيل:-</strong>  {{$order->orderFinance->delivery}} ر.س</li>
                                             </ul>
                                             <h3 class="mb-0 text-success">ر.س {{$order->orderFinance->total}}</h3>

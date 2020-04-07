@@ -42,9 +42,9 @@ class ProductController extends Controller
     {
         $request->validate([
             'name_ar'   =>  'required',
-            'name_en'   =>  'required',
+            /*'name_en'   =>  'required',*/
             'desc_ar'   =>  'required',
-            'desc_en'   =>  'required',
+            /*'desc_en'   =>  'required',*/
             'price'     =>  'required',
             'weight'    =>  'required',
             'image'     =>  'required',
@@ -78,9 +78,9 @@ class ProductController extends Controller
         {
             $product = new Product();
             $product->title_ar = \request('name_ar');
-            $product->title_en = \request('name_en');
+            /*$product->title_en = \request('name_en');*/
             $product->desc_ar = \request('desc_ar');
-            $product->desc_en = \request('desc_en');
+            /*$product->desc_en = \request('desc_en');*/
             $product->price = \request('price');
             $product->weight = \request('weight');
             if (isset($request->active))
@@ -141,9 +141,9 @@ class ProductController extends Controller
         $product = Product::with('image')->find($id);
         $request->validate([
             'name_ar'   =>  'required',
-            'name_en'   =>  'required',
+            /*'name_en'   =>  'required',*/
             'desc_ar'   =>  'required',
-            'desc_en'   =>  'required',
+            /*'desc_en'   =>  'required',*/
             'price'     =>  'required',
             'weight'    =>  'required',
             'active'    =>  'int',
@@ -158,9 +158,9 @@ class ProductController extends Controller
         try
         {
             $product->title_ar = \request('name_ar');
-            $product->title_en = \request('name_en');
+            /*$product->title_en = \request('name_en');*/
             $product->desc_ar = \request('desc_ar');
-            $product->desc_en = \request('desc_en');
+            /*$product->desc_en = \request('desc_en');*/
             $product->price = \request('price');
             $product->weight = \request('weight');
             if (isset($request->active))
@@ -180,8 +180,8 @@ class ProductController extends Controller
             $product->save();
 
             return redirect(adminUrl('product'))->with('update', 'تم تعديل المنتج بنجاح');
-
         }
+
         catch (\Exception $e)
         {
             Session::flash('exception', 'خطأ في حفظ البيانات');
