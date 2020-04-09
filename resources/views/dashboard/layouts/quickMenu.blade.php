@@ -1,102 +1,65 @@
 
-<!-- Left Sidebar -->
-<aside id="leftsidebar" class="sidebar">
-    <div class="navbar-brand">
-        <button class="btn-menu ls-toggle-btn" type="button"><i class="zmdi zmdi-menu"></i></button>
-        <a href="{{adminUrl('/')}}"><img src="{{asset('dashboard/assets/images/logo-3.png')}}" width="25" alt="Aero"><span class="m-l-10"> تطبيق تمرات</span></a>
-    </div>
-    <div class="menu">
-        <ul class="list">
-            <li>
-                <div class="user-info">
-                    <a class="image" href="{{adminUrl('profile')}}"><img src="{{asset('dashboard/assets/images/user.png')}}" alt="User"></a>
-                    <div class="detail">
-                        <h4> {{Auth::user()->name}} </h4>
-                        <small>مدير التطبيق</small>
-                    </div>
-                </div>
-            </li>
-            <li class="active open"><a href="{{adminUrl('/')}}"><i class="zmdi zmdi-home"></i><span>الصفحة الرئيسية</span></a></li>
-            <li>
-                <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-accounts"></i><span>المستخدمين </span></a>
-                <ul class="ml-menu">
-                    <li><a href="{{adminUrl('user')}}">شاهد المستخدمين</a></li>
-                   {{-- <li><a href="{{adminUrl('user/create')}}">مستخدم جديد</a></li>--}}
-                </ul>
-            </li>
-            <li>
-                <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-shopping-basket"></i><span>المنتجات</span></a>
-                <ul class="ml-menu">
-                    <li><a href="{{adminUrl('product')}}">شاهد المنتجات</a></li>
-                    <li><a href="{{adminUrl('product/create')}}"> منتج جديد</a></li>
-                </ul>
-            </li>
-            <li>
-                <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-shopping-cart-plus"></i><span>الطلبات</span></a>
-                <ul class="ml-menu">
-                    <li><a href="{{adminUrl('order')}}">جميع الطلبات</a></li>
-                    <li><a href="{{adminUrl('order?status=waiting')}}">طلبات في انتظار التوصيل</a></li>
-                    <li><a href="{{adminUrl('order?status=shipped')}}">طلبات تم شحنها</a></li>
-                    <li><a href="{{adminUrl('order?status=delivered')}}">طلبات تم توصيلها</a></li>
-                </ul>
-            </li>
-            <li>
-                <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-notifications"></i><span>الإشعارات</span></a>
-                <ul class="ml-menu">
-                    <li><a href="{{adminUrl('notification')}}">جميع الإشعارات</a></li>
-                    <li><a href="{{adminUrl('notification/create')}}">اشعار جديد</a></li>
-                </ul>
-            </li>
-            <li><a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-money-box"></i><span>التحويلات البنكية</span></a>
-                <ul class="ml-menu">
-                    <li><a href="{{adminUrl('bank-transfer')}}">التحويلات النكية</a></li>
-                </ul>
-            </li>
-            <li>
-                <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-local-offer"></i><span>العروض </span></a>
-                <ul class="ml-menu">
-                    <li><a href="{{adminUrl('offer')}}"> شاهد العروض السابقة </a></li>
-                    <li><a href="{{adminUrl('offer/create')}}"> عرض جديد   </a></li>
-                </ul>
-            </li>
-            {{--<li>
-                <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-money"></i><span>إعدادات الدفع </span></a>
-                <ul class="ml-menu">
-                    <li><a href="{{adminUrl('payment-setting/1/edit')}}"> ضبط إعدادات الدفع </a></li>
-                </ul>
-            </li>--}}
-            <li>
-                <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-money-box"></i><span>الرموز الترويجية </span></a>
-                <ul class="ml-menu">
-                    <li><a href="{{adminUrl('promo-code/create')}}"> اضافة رمز ترويجي </a></li>
-                    <li><a href="{{adminUrl('promo-code')}}"> شاهد الرموز السابقة </a></li>
-                </ul>
-            </li>
-            {{--<li>
-                <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-comment-alert"></i><span>الشكاوى و المقترحات </span></a>
-                <ul class="ml-menu">
-                    <li><a href="{{adminUrl('message')}}"> شاهد جميع الرسائل </a></li>
-                </ul>
-            </li>--}}
-            {{--<li>
-                <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-phone"></i><span>عدل بيانات الإتصال</span></a>
-                <ul class="ml-menu">
-                    <li><a href="{{adminUrl('contact/edit')}}">عدل بيانات الإتصال </a></li>
-                </ul>
-            </li>--}}
-            <li><a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-swap-alt"></i><span>إدارة التطبيق </span></a>
-                <ul class="ml-menu">
-                    <li><a href="{{adminUrl('admin')}}"> شاهد المديرين  </a></li>
-                    <li><a href="{{adminUrl('admin/create')}}">اضف مدير للتطبيق</a></li>
-                </ul>
-            </li>
-
-            {{--<li><a href="{{adminUrl('logout')}}"><i class="zmdi zmdi-sign-in"></i><span>تسجيل الخروج  </span></a>
-            </li>--}}
-        </ul>
-    </div>
-</aside>
-
+<!-- Right Icon menu Sidebar -->
+<div class="navbar-right">
+    <ul class="navbar-nav">
+        <li><a href="#search" class="main_search" title="Search..."><i class="zmdi zmdi-search"></i></a></li>
+        <li class="dropdown">
+            <a href="javascript:void(0);" class="dropdown-toggle" title="App" data-toggle="dropdown" role="button"><i class="zmdi zmdi-apps"></i></a>
+            <ul class="dropdown-menu slideUp2">
+                <li class="header">روابط سريعة</li>
+                <li class="body">
+                    <ul class="menu app_sortcut list-unstyled">
+                        <li>
+                            <a href="{{adminUrl('product/create')}}">
+                                <div class="icon-circle mb-2 bg-blue"><i class="zmdi zmdi-shopping-basket"></i></div>
+                                <p class="mb-0">منتج جديد</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{adminUrl('offer/create')}}">
+                                <div class="icon-circle mb-2 bg-blue"><i class="zmdi zmdi-local-offer"></i></div>
+                                <p class="mb-0">عرض جديد</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{adminUrl('bank-transfer')}}">
+                                <div class="icon-circle mb-2 bg-green"><i class="zmdi zmdi-money-box"></i></div>
+                                <p class="mb-0">التحويلات البنكية</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{adminUrl('promo-code/create')}}">
+                                <div class="icon-circle mb-2 bg-purple"><i class="zmdi zmdi-money-box"></i></div>
+                                <p class="mb-0">رمز ترويجي جديد</p>
+                            </a>
+                        </li>
+                        {{--<li>
+                            <a href="javascript:void(0);">
+                                <div class="icon-circle mb-2 bg-red"><i class="zmdi zmdi-tag"></i></div>
+                                <p class="mb-0">News</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);">
+                                <div class="icon-circle mb-2 bg-grey"><i class="zmdi zmdi-map"></i></div>
+                                <p class="mb-0">Maps</p>
+                            </a>
+                        </li>--}}
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li class="dropdown">
+            <a href="{{adminUrl('notification/create')}}" class="dropdown-toggle" title="الإشعارات"><i class="zmdi zmdi-notifications"></i>
+                <div class="notify"><span class="heartbit"></span><span class="point"></span></div>
+            </a>
+        </li>
+        <li><a href="{{adminUrl('message')}}" class="app_calendar" title="الشكاوى و المقترحات"><i class="zmdi zmdi-comment-alert"></i></a></li>
+        <li><a href="{{adminUrl('contact/edit')}}" class="app_google_drive" title="بيانات الإتصال"><i class="zmdi zmdi-phone"></i></a></li>
+        <li><a href="{{adminUrl('payment-setting/1/edit')}}" class="js-right-sidebar" title="إعدادات الدفع"><i class="zmdi zmdi-settings zmdi-hc-spin"></i></a></li>
+        <li><a href="{{adminUrl('logout')}}" class="mega-menu" title="تسجيل الخروج"><i class="zmdi zmdi-power"></i></a></li>
+    </ul>
+</div>
 
 {{--<!-- Right Sidebar -->
 <aside id="rightsidebar" class="right-sidebar">

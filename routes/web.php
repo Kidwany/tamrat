@@ -39,6 +39,13 @@ Route::group(['namespace' => 'Dashboard', 'prefix' => 'tamra-admin', 'middleware
 
     Route::resource('payment-setting', 'PaymentSettingController');
 
+    Route::get('message', 'MessageController@index');
+    Route::get('message/{id}', 'MessageController@show');
+
+    /*--------  Contact   --------*/
+    Route::get('contact/edit', 'ContactController@edit');
+    Route::patch('contact/update', 'ContactController@update');
+
     Route::get('/logout', 'DashboardController@logout');
 
 

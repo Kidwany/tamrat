@@ -48,6 +48,7 @@
         <!-- Overlay For Sidebars -->
         <div class="overlay"></div>
 
+        @include('dashboard.layouts.quickMenu')
         @include('dashboard.layouts.sidemenu')
         <section class="content">
             @yield('content')

@@ -70,6 +70,12 @@ Route::group(['namespace'  => 'Api'], function() {
     // Check Promo Api
     Route::post('promo-code', 'PromoCodeController@check');
 
+    // Contact Message
+    Route::post('message', 'MessageController@send');
+
+    //Contact Info
+    Route::get('contact', 'ContactInfoController@getContactInfo');
+
 });
 
 
