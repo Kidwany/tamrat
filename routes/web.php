@@ -48,12 +48,12 @@ Route::group(['namespace' => 'Dashboard', 'prefix' => 'tamra-admin', 'middleware
 
     Route::get('/logout', 'DashboardController@logout');
 
-
 });
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/privacy', 'WebsitePagesController@privacy');
 
 
 Route::get('reset/password/{token}', 'Api\AuthController@resetPasswordView');

@@ -91,21 +91,26 @@ class NotificationClass
     public static function multiplePushNotification($title, $description, $tokens = array())
     {
         $server_key = 'AAAAyL4AXb4:APA91bH9vQG4jC0ehbpUEtU8iFN82jaumfrru9Dj_VomVDcsMJjvlVUNtOGt4uJhJzMqa5JPo-GzWYuBt5JLSQ8tct6u7OZwWGGRDWxpgUXNmYVj33SQ1Gm-NskH9dcyhHfzuHD__wW5';
-        $client = new Client();
-        $client->setApiKey($server_key);
-        $client->injectGuzzleHttpClient(new \GuzzleHttp\Client());
-        $message = new Message();
-        $message->setPriority('high');
+        $client = new \GuzzleHttp\Client();
         foreach ($tokens as $token)
         {
-            $message->addRecipient(new Device($token));
+            $request = $client->request('POST','https://fcm.googleapis.com/fcm/send',[
+                'headers' => [
+                    "Authorization" => "key=" . $server_key,
+                    "content-type" => "application/json"
+                ],
+                'json' =>
+                    [
+                        'data' => [
+                            "title" => $title,
+                            "content" => $description,
+                            //"imageUrl" => "http://h5.4j.com/thumb/Ninja-Run.jpg",
+                            //"gameUrl" => "https://h5.4j.com/Ninja-Run/index.php?pubid=noad"
+                        ],
+                        'to' => $token
+                    ]
+            ]);
         }
-        $message
-            ->setNotification(new Notification($title, $description))
-            ->setData(['key' => 'value'])
-        ;
-        $response = $client->send($message);
-        $response->getStatusCode();
     }
 
 }
