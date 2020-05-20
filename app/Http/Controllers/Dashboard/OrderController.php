@@ -19,25 +19,22 @@ class OrderController extends Controller
         $status = \request('status');
         if ($status == 'waiting')
         {
-            $orders = Order::with('orderFinance')->where('status_id', 3)->orderBy('created_at', 'desc')->get();
+            $orders = Order::orderStatus([3])->get();
             return view('dashboard.order.index', compact('orders'));
         }
         elseif($status == 'shipped')
         {
-            $orders = Order::with('orderFinance')->where('status_id', 4)->orderBy('created_at', 'desc')->get();
+            $orders = Order::orderStatus([4])->get();
             return view('dashboard.order.index', compact('orders'));
         }
         elseif ($status == 'delivered')
         {
-            $orders = Order::with('orderFinance')->where('status_id', 5)->orderBy('created_at', 'desc')->get();
+            $orders = Order::orderStatus([5])->get();
             return view('dashboard.order.index', compact('orders'));
         }
         else
         {
-            $orders = Order::with('orderFinance')
-                ->where('user_id', '!=', null)
-                ->whereIn('status_id', [3, 4, 5, 7])->orderBy('created_at', 'desc')
-                ->get();
+            $orders = Order::orderStatus([3, 4, 5, 7])->get();
             return view('dashboard.order.index', compact('orders'));
         }
     }

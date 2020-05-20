@@ -104,8 +104,6 @@ class NotificationClass
                         'data' => [
                             "title" => $title,
                             "content" => $description,
-                            //"imageUrl" => "http://h5.4j.com/thumb/Ninja-Run.jpg",
-                            //"gameUrl" => "https://h5.4j.com/Ninja-Run/index.php?pubid=noad"
                         ],
                         'to' => $token
                     ]

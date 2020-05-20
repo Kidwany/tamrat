@@ -4,11 +4,16 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Classes\Upload;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreProjectRequest;
 use App\Models\Image;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
+/**
+ * Class ProductController
+ * @package App\Http\Controllers\Dashboard
+ */
 class ProductController extends Controller
 {
     /**
@@ -34,29 +39,11 @@ class ProductController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
+     * @param StoreProjectRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreProjectRequest $request)
     {
-        $request->validate([
-            'name_ar'   =>  'required',
-            /*'name_en'   =>  'required',*/
-            'desc_ar'   =>  'required',
-            /*'desc_en'   =>  'required',*/
-            'price'     =>  'required',
-            'weight'    =>  'required',
-            'image'     =>  'required',
-            'active'    =>  'int',
-        ], [] , [
-            'name_ar'   =>  'Name in Arabic',
-            'name_en'   =>  'Name in English',
-            'desc_ar'   =>  'Description in Arabic',
-            'desc_en'   =>  'Description in English',
-        ]);
-
-        //save doctor image
         try
         {
             if (isset($request->image))
@@ -72,17 +59,13 @@ class ProductController extends Controller
             return redirect()->back()->withInput();
         }
 
-
-
         try
         {
             $product = new Product();
-            $product->title_ar = \request('name_ar');
-            /*$product->title_en = \request('name_en');*/
-            $product->desc_ar = \request('desc_ar');
-            /*$product->desc_en = \request('desc_en');*/
-            $product->price = \request('price');
-            $product->weight = \request('weight');
+            $product->title_ar = $request->name_ar;
+            $product->desc_ar = $request->desc_ar;
+            $product->price = $request->price;
+            $product->weight = $request->weight;
             if (isset($request->active))
             {
                 $product->status_id = 1;

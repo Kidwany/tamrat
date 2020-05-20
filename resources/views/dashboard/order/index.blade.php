@@ -68,7 +68,7 @@
                                                 <td>{{$order->code}}</td>
                                                 <td>{{$order->orderFinance->total}} ر.س</td>
                                                 <td><span class="badge badge-info">{{$order->status->title_ar}}</span></td>
-                                                <td>{{$order->created_at->diffForHumans()}}</td>
+                                                <td>{{$order->created_at}}</td>
                                                 <td>
                                                     <a href="{{adminUrl('order/'.$order->id)}}" class="btn btn-primary btn-sm"><i class="zmdi zmdi-eye"></i> </a>
                                                 </td>

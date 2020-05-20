@@ -18,11 +18,11 @@ use Illuminate\Http\Request;
  */
 Route::group(['prefix' => 'auth', 'namespace'  => 'Api'], function() {
     // Login Api
-    Route::post('login', 'AuthController@login');
+    Route::post('login', 'LoginController');
     // Register Api
-    Route::post('register', 'AuthController@register');
+    Route::post('register', 'RegisterController');
     // Verify
-    Route::post('verify', 'AuthController@verify');
+    Route::post('verify', 'VerifyController');
     // Reset Password Api
     Route::post('reset-password', 'AuthController@sendResetPasswordEmail');
 });
@@ -44,7 +44,7 @@ Route::group(['middleware' => 'auth:api', 'namespace'  => 'Api'], function() {
     Route::post('bank-transfer', 'BankTransferController@store');
 
     // Change Language
-    Route::post('change-language', 'AuthController@changeLanguage');
+    Route::post('change-language', 'ChangeLanguageController');
 
     // Logout
     Route::get('logout', 'AuthController@logout');

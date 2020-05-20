@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -74,4 +75,21 @@ class Order extends Model
     {
         return $this->hasMany('App\Models\TotalUserOrder');
     }
+
+    public function setCreatedAtAttribute($value)
+    {
+        $this->attributes['created_at'] = Carbon::createFromFormat('m/d/y', $value)->format('Y-m-d');
+    }
+
+    public function getCreatedAtAttribute($value)
+    {
+        return Carbon::parse($value)->format('d M Y');
+    }
+
+    public function scopeOrderStatus($query, $status = array())
+    {
+        return $query->with('orderFinance')->whereIn('status_id', $status)->orderBy('created_at', 'desc');
+    }
+
+
 }

@@ -43,7 +43,7 @@
                                             </address>
                                         </div>
                                         <div class="col-md-6 col-sm-6 text-right">
-                                            <p class="mb-0"><strong>تاريخ الطلب: </strong> {{$order->created_at->format('d M Y')}}</p>
+                                            <p class="mb-0"><strong>تاريخ الطلب: </strong> {{$order->created_at}}</p>
                                             <p class="mb-0"><strong>حالة الطلب: </strong> <span class="badge badge-success"> {{$order->status->title_ar}} </span></p>
                                             <p class="mb-0"><strong>طريقة الدفع: </strong> <span class="badge badge-primary">  {{$order->orderFinance->payment_method}} </span></p>
                                             @if($order->orderFinance->promo_code_id)
